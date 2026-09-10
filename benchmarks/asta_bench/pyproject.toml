@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openevo-asta-bench"
+version = "0.1.0"
+description = "AstaBench adapter utilities for running OpenEvo with Inspect-owned evaluation logs."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.9.0",
+]
+
+[project.optional-dependencies]
+astabench = [
+    "inspect-ai",
+]
+
+[project.scripts]
+openevo-asta-bench = "openevo_asta_bench.cli:main"
+
+[project.entry-points.inspect_ai]
+openevo_asta_bench = "openevo_asta_bench.solver"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["openevo_asta_bench*"]
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = ["src", "../../src"]
+testpaths = ["tests"]
